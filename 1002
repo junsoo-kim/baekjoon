@@ -1,0 +1,78 @@
+//baekjoon #1002
+
+#include <stdio.h>
+
+float calc_distance(int x1, int y1, int x2, int y2);
+int calc_count(float dis_sqr, int r1, int r2);
+
+int main(void) 
+{
+	int n;
+	int x1, y1;
+	int x2, y2;
+	int r1, r2;
+	float dis_sqr;
+	int count;
+	
+	scanf("%d", &n);
+	
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%d%d%d%d%d%d", &x1, &y1, &r1, &x2, &y2, &r2);
+		dis_sqr = calc_distance(x1, y1, x2, y2);
+		count = calc_count(dis_sqr, r1, r2);
+		printf("%d\n", count);
+	}
+	return 0;
+}
+
+float calc_distance(int x1, int y1, int x2, int y2)
+{
+	float dis_sqr;
+	dis_sqr = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+	return dis_sqr;
+}
+
+int calc_count(float dis_sqr, int r1, int r2)
+{
+	int count;
+	
+	if(dis_sqr != 0)
+	{
+		if(dis_sqr > (r1+r2)*(r1+r2))
+		{
+			count = 0;
+		}
+		else if(dis_sqr < (r1+r2)*(r1+r2))
+		{
+			if(dis_sqr < (r1-r2)*(r1-r2))
+			{
+				count = 0;
+			}
+			else if(dis_sqr == (r1-r2)*(r1-r2))
+			{
+				count = 1;
+			}
+			else
+			{
+				count = 2;
+			}
+		}
+		else
+		{
+			count = 1;
+		}
+	}
+	else
+	{
+		if(r1 != r2)
+		{
+			count = 0;
+		}
+		else
+		{
+			count = -1;
+		}
+	}
+	return count;
+}
