@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void get_info(int** r_time, int*** order, int* w, int* n, int* k);
+void calc(int* r_time, int** order, int w, int n, int k, int* result);
+void search_order(int** order, int k, int w);
+void calc_time(int* r_time, int n, int w, int* result);
+
+int main(void) 
+{
+	int t, n, k;
+	int w;
+	int result;
+	
+	scanf("%d", &t);
+	
+	for(int i = 0; i < t; i++)
+	{
+		int* r_time;
+		int** order;
+
+	//get info
+		get_info(&r_time, &order, &w, &n , &k);
+		
+	//calc
+		calc(r_time, order, w, n, k, &result);
+		
+	//print(test)
+		printf("%d %d\n", n, k);
+		for(int j = 0; j < n; j++)
+		{
+			printf("%d ", r_time[j]);
+		}
+		printf("\n");
+		for(int j = 0; j < k; j++)
+		{
+			printf("%d %d\n", order[j][0], order[j][1]);
+		}
+		printf("%d\n", w);
+		
+	//free
+		free(r_time);
+		for(int j = 0; j < k; j++)
+		{
+			free(order[j]);
+		}
+		free(order); 
+	}
+	return 0;
+}
+
+void get_info(int** r_time, int*** order, int* w, int* n, int* k)
+{
+	scanf("%d%d", n, k);
+//dynamic allocation
+	*r_time = (int*)malloc(sizeof(int)* *n);
+	*order = (int**)malloc(sizeof(int*)* *k);
+	for(int j = 0; j < *k; j++)
+	{
+		(*order)[j] = (int*)malloc(sizeof(int)*2);
+	}
+	
+//get info
+	for(int j = 0; j < *n; j++)
+	{
+		scanf("%d", &(*r_time)[j]);
+	}
+	for(int j = 0; j < *k; j++)
+	{
+		scanf("%d%d", &(*order)[j][0], &(*order)[j][1]);
+	}
+	scanf("%d", w);
+	
+	return;
+}
+
+void calc(int* r_time, int** order, int w, int n, int k, int* result)
+{
+	int count = 0;
+	for(int i = 0; i < k; i++)
+	{
+		if(order[i][1] == w)
+		{
+			count++;
+		}
+	}
+	if(count > 1)
+	{
+	}
+	else
+	{
+		*result = calc_time();
+	}
+	printf("pre_condition : %d\n", count);
+	return;
+}
