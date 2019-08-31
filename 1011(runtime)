@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main(void) 
+{
+	int n;
+	int x, y;
+	int distance;
+	int result;
+	
+	scanf("%d", &n);
+	
+	for(int t = 0; t < n; t++)
+	{
+		scanf("%d%d", &x, &y);
+		distance = y - x;
+		
+		for(int k = 0; ; k++)
+		{
+			if(distance >= k * (k + 1) && distance <= (k + 1) * (k + 1))
+			{
+				result = 2 * k + 1;
+				break;
+			}
+			else if(distance >= (k + 1) * (k + 1) && distance <= (k + 1) * (k + 2))
+			{
+				result = 2 * k + 2;
+				break;
+			}
+		}
+		printf("%d\n", result);
+	}
+	return 0;
+}
