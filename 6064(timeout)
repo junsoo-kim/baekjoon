@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+int main(void) 
+{
+	int t;
+	int m, n, x, y;
+	int a, b;
+	int flag;
+	int j;
+	
+	scanf("%d", &t);
+	
+	for(int i = 0; i < t; i++)
+	{
+		a = 1;
+		b = 1;
+		flag = 0;
+		
+		scanf("%d%d%d%d", &m, &n, &x, &y);
+		
+		for(j = 1; ; j++)
+		{
+			if(a == x && b == y)
+			{
+				break;
+			}
+			
+			if(a == m && b == n)
+			{
+				flag = 1;
+				break;
+			}
+			
+			if(a < m)
+			{
+				a++;
+			}
+			else
+			{
+				a = 1;
+			}
+			if(b < n)
+			{
+				b++;
+			}
+			else
+			{
+				b = 1;
+			}
+		}
+		
+		if(flag)
+		{
+			printf("-1\n");
+		}
+		else
+		{
+			printf("%d\n", j);
+		}
+	}
+	
+	return 0;
+}
