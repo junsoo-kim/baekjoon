@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void calc_prime(int** prime, int n);
+
+int main(void) 
+{
+	int t;
+	int max = 0;
+	int* str;
+	int* prime;
+	
+	scanf("%d", &t);
+	
+	str = (int*)malloc(sizeof(int) * t);
+	
+	for(int i = 0; i < t; i++)
+	{
+		scanf("%d", &str[i]);
+		if(str[i] > max)
+		{
+			max = str[i];
+		}
+	}
+	
+	calc_prime(&prime, max);
+	
+	
+	
+	return 0;
+}
+
+void calc_prime(int** prime, int n)
+{
+	*prime = (int*)malloc(sizeof(int) * (n + 1));
+	for(int i = 2; i <= n; i++)
+	{
+		(*prime)[i] = 1;
+	}
+	(*prime)[1] = 0;
+	
+	for(int i = 2; i * i <= n; i++)
+	{
+		if((*prime)[i])
+		{
+			for(int j = 2; j * i <= n; j++)
+			{
+				(*prime)[i * j] = 0;
+			}
+		}
+	}
+	
+	return;
+}
