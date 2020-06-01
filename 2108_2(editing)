@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int rounds(double k);
+void sort(int*, int);
+void swap(int*, int*);
+int mode(int*, int);
+
+int main()
+{
+    int n;
+    int* ary;
+    int sum = 0;
+    double mean;
+    scanf("%d", &n);
+    ary = (int*)malloc(sizeof(int) * n);
+
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &ary[i]);
+        sum += ary[i];
+        //test
+        //printf("%d ", ary[i]);
+    }
+    printf("\n");
+
+    mean = (double) sum / n;
+   
+    sort(ary, n);
+    
+    printf("%d\n", rounds(mean));
+    printf("%d\n", ary[n / 2]);
+    printf("%d\n", mode(ary, n));
+    printf("%d\n", ary[n - 1] - ary[0]);
+
+    return 0;
+}
+
+int rounds(double k)
+{
+    if((int)(k * 10) % 10 >= 5)
+    {
+        return (int)k + 1;
+    }
+    else
+    {
+        return (int)k;
+    }
+}
+
+void sort(int* ary, int n)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        for(int j = 0; j < n - i - 1; j++)
+        {
+            if(ary[j] > ary[j + 1])
+                swap(&ary[j], &ary[j + 1]);
+        }
+    }
+
+    //test
+    //for(int i = 0; i < n; i++)
+    //{
+    //    printf("%d ", ary[i]);
+    //}
+    //printf("\n");
+
+    return;
+}
+
+void swap(int* a, int* b)
+{
+    int z = *a;
+    *a = *b;
+    *b = z;
+}
+
+int mode(int* ary, int n)
+{
+    int** count;
+    int max = 0;
+    int max_num = 0;
+    count = (int**)malloc(sizeof(int*) * 8001);
+    for(int i = 0; i < 8001; i++)
+    {
+        count[i] = (int*)malloc(sizeof(int));
+    }
+
+    count[ary[0] + 4000][0]++;
+    for(int i = 1; i < n; i++)
+    {
+        count[ary[i] + 4000][0]++;
+    }
+
+    //for(int i = 4001; i < 8001; i++)
+    //{
+    //    printf("%d ", count[i][0]);
+    //}
+    //printf("\n");
+
+
+    for(int i = 0; i < 8001; i++)
+    {
+        if(count[i][0] > max)
+        {
+            max = count[i][0];
+            max_num = i;
+        }
+        else if(max != 0 && count[i][0] == max)
+        {
+            return i - 4000;
+        }
+    }
+
+    return max_num - 4000;
+}
